@@ -1,8 +1,9 @@
 from itertools import combinations
-from common import file_to_int_array
+from common import IntList
+from common import read_list
 
 
-def product(arr: list):
+def product(arr: IntList):
     ret = arr[0]
 
     for x in arr[1:]:
@@ -11,7 +12,7 @@ def product(arr: list):
     return ret
 
 
-def find_values(arr: list, expected_value: int, group_size: int = 2):
+def find_values(arr: IntList, expected_value: int, group_size: int = 2):
     for group in combinations(arr, group_size):
         if sum(group) == expected_value:
             return product(group)
@@ -19,7 +20,7 @@ def find_values(arr: list, expected_value: int, group_size: int = 2):
 
 if __name__ == "__main__":
     input_file = 'day01.txt'
-    input_array = file_to_int_array(input_file)
+    input_array = read_list(input_file)
 
     # Puzzle 1
     res1 = find_values(input_array, 2020)
