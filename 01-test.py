@@ -4,12 +4,12 @@ import day01
 
 class TestDay01(unittest.TestCase):
     def test_product(self):
-        res = day01.product([1,2,3,4])
+        res = day01.product([1, 2, 3, 4])
         self.assertEqual(res, 24)
 
 
     def test_product_zero(self):
-        res = day01.product([0,100,123])
+        res = day01.product([0, 100, 123])
         self.assertEqual(res, 0)
 
 
