@@ -1,1 +1,1 @@
-from .inputs import file_to_int_array
+from .inputs import *
