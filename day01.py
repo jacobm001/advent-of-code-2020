@@ -19,7 +19,7 @@ def find_values(arr: IntList, expected_value: int, group_size: int = 2):
 
 
 if __name__ == "__main__":
-    input_file = 'day01.txt'
+    input_file  = 'day01.txt'
     input_array = read_list(input_file)
 
     # Puzzle 1
