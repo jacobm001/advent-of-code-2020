@@ -2,6 +2,7 @@
 
 from typing import List
 IntList = List[int]
+Matrix  = List[list]
 
 
 def read_list(f: str, type_func = int):
@@ -11,3 +12,16 @@ def read_list(f: str, type_func = int):
 
     arr = list(map(type_func, raw_arr))
     return arr
+
+
+def read_matrix(f: str, type_func = int) -> Matrix:
+    path = f'inputs/{f}'
+    with open(path, 'r') as f:
+        matrix = f.read().splitlines()
+
+    for i, line in enumerate(matrix):
+        # convert the line to a list of the input type
+        matrix[i] = list(map(type_func, list(line)))
+
+    return matrix
+
