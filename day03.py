@@ -1,6 +1,6 @@
 from common import read_matrix
 from common import Matrix
-
+from common import product
 
 class Toboggan:
     matrix: Matrix
@@ -49,3 +49,21 @@ if __name__ == "__main__":
     t.run(3, 1)
 
     print(f'Answer 1: {t.count_collisions()}')
+
+    # Part 2
+    slopes = [
+        (1, 1)
+        , (3, 1)
+        , (5, 1)
+        , (7, 1)
+        , (1, 2)
+    ]
+
+    num_collisions = []
+    for slope in slopes:
+        t = Toboggan(matrix)
+        t.run(slope[0], slope[1])
+        num_collisions.append(t.count_collisions())
+
+    total_collisions = product(num_collisions)
+    print(f'Answer 2: {total_collisions}')
