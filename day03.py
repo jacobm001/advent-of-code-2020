@@ -25,6 +25,8 @@ class Toboggan:
         self.cur_pos_y += y
 
     def check_position_value(self):
+        # There's no need to actually copy the matrix over in memory
+        # applying a mod operator here will simulate the matrix extension
         x = self.cur_pos_x % self.matrix_width
         return self.matrix[self.cur_pos_y][x]
 
@@ -34,11 +36,16 @@ class Toboggan:
             if self.check_position_value() == '#':
                 self.collisions.append((self.cur_pos_x, self.cur_pos_y))
 
+    def count_collisions(self) -> int:
+        return len(self.collisions)
+
 
 if __name__ == "__main__":
     input_file = 'day03.txt'
     matrix     = read_matrix(input_file, str)
 
+    # Part 1
     t = Toboggan(matrix)
     t.run(3, 1)
-    print(len(t.collisions))
+
+    print(f'Answer 1: {t.count_collisions()}')
