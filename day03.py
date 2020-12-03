@@ -2,6 +2,7 @@ from common import read_matrix
 from common import Matrix
 from common import product
 
+
 class Toboggan:
     matrix: Matrix
     matrix_width: int

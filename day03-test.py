@@ -2,6 +2,7 @@ import unittest
 from common import read_matrix
 from day03 import Toboggan
 
+
 class MyTestCase(unittest.TestCase):
     def test_toboggan_run(self):
         input_file = 'day03-test.txt'
