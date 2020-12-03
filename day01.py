@@ -1,15 +1,7 @@
 from itertools import combinations
 from common import IntList
 from common import read_list
-
-
-def product(arr: IntList):
-    ret = arr[0]
-
-    for x in arr[1:]:
-        ret *= x
-
-    return ret
+from common import product
 
 
 def find_values(arr: IntList, expected_value: int, group_size: int = 2):
