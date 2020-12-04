@@ -1,5 +1,15 @@
-PASSPORT_REQUIRED_FIELDS = ['cid', 'sid']
-PASSPORT_OPTIONAL_FIELDS = []
+PASSPORT_REQUIRED_FIELDS = [
+    'byr'   # (Birth Year)
+    , 'iyr' # (Issue Year)
+    , 'eyr' # (Expiration Year)
+    , 'hgt' # (Height)
+    , 'hcl' # (Hair Color)
+    , 'ecl' # (Eye Color)
+    , 'pid' # (Passport ID)
+]
+PASSPORT_OPTIONAL_FIELDS = [
+    'cid' # (Country ID)
+]
 
 
 class Passport:
