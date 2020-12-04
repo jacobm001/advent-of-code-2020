@@ -156,6 +156,4 @@ if __name__ == '__main__':
             count_ans_2 += 1
 
     print(f'Answer 1: {count_ans_1}')
-    # 176 too high
-    # 175 is the correct answer. Can't figure out why
     print(f'Answer 2: {count_ans_2}')
