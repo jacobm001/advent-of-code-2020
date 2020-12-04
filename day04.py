@@ -1,3 +1,5 @@
+PASSPORT_REQUIRED_FIELDS = ['cid', 'sid']
+PASSPORT_OPTIONAL_FIELDS = []
 
 
 class Passport:
@@ -9,8 +11,12 @@ class Passport:
 
         for entry in raw_keys:
             entry = entry.split(':')
+            self.passport_fields[entry[0]] = entry[1]
 
-
+    def validate_passport(self):
+        for field in PASSPORT_REQUIRED_FIELDS:
+            if field not in self.passport_fields:
+                return False
 
 
 def read_passport_file(input_file):
@@ -20,7 +26,8 @@ def read_passport_file(input_file):
 
     passports = []
     passports_raw = passports.split('\n\n')
-    for p in passports:
+    for entry in passports_raw:
+        passports.append(Passport(entry))
 
 
 if __name__ == '__main__':
