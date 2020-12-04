@@ -18,6 +18,7 @@ class Passport:
     def __init__(self, raw_str):
         raw_str  = raw_str.replace('\n', '')
         raw_keys = raw_str.split(' ')
+        self.passport_fields = {}
 
         for entry in raw_keys:
             entry = entry.split(':')
@@ -27,6 +28,8 @@ class Passport:
         for field in PASSPORT_REQUIRED_FIELDS:
             if field not in self.passport_fields:
                 return False
+
+        return True
 
 
 def read_passport_file(input_file):
@@ -41,4 +44,6 @@ def read_passport_file(input_file):
 
 
 if __name__ == '__main__':
-    read_passport_file('day04.txt')
+    # read_passport_file('day04.txt')
+    p = Passport('ecl:gry pid:860033327 eyr:2020 hcl:#fffffd byr:1937 iyr:2017 cid:147 hgt:183cm')
+    print(p.validate_passport())
