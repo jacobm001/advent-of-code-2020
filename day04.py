@@ -37,13 +37,20 @@ def read_passport_file(input_file):
     with open(f_path, 'r') as f:
         passports_raw_batch = f.read()
 
-    passports = []
-    passports_raw = passports.split('\n\n')
+    ret = []
+    passports_raw = passports_raw_batch.split('\n\n')
     for entry in passports_raw:
-        passports.append(Passport(entry))
+        ret.append(Passport(entry))
+
+    return ret
 
 
 if __name__ == '__main__':
-    # read_passport_file('day04.txt')
-    p = Passport('ecl:gry pid:860033327 eyr:2020 hcl:#fffffd byr:1937 iyr:2017 cid:147 hgt:183cm')
-    print(p.validate_passport())
+    passports = read_passport_file('day04.txt')
+
+    count = 0
+    for passport in passports:
+        if passport.validate_passport():
+            count += 1
+
+    print(f'Answer 1: {count}')
