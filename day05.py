@@ -8,7 +8,7 @@ NUM_COLS: int = 8
 TICKET_PATTERN: re.Pattern = re.compile('^([FB]+)([LR]+)$')
 
 
-class TicketParser():
+class TicketParser:
     seat_code: str
     seat_id: int
     assigned_row: int
