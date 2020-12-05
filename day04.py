@@ -1,4 +1,3 @@
-import abc
 import re
 
 PASSPORT_REQUIRED_FIELDS = [
@@ -21,7 +20,6 @@ VALID_PID_PATTERN        = re.compile('^[0-9]{9}$')
 VALID_EYE_COLORS         = [
     'amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'
 ]
-
 
 
 class Passport:
