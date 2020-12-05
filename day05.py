@@ -66,4 +66,13 @@ class TicketParser():
 
 
 if __name__ == "__main__":
-    pass
+    input_file   = 'day05.txt'
+    ticket_codes = common.read_list(input_file, str)
+
+    seat_ids = []
+    for ticket_code in ticket_codes:
+        t = TicketParser(ticket_code)
+        seat_ids.append(t.seat_id)
+
+    max_seat_id = max(seat_ids)
+    print(f'Answer 1: {max_seat_id}')
