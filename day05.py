@@ -76,3 +76,13 @@ if __name__ == "__main__":
 
     max_seat_id = max(seat_ids)
     print(f'Answer 1: {max_seat_id}')
+
+    seat_ids.sort()
+    my_seat_id: int = None
+    for i, seat_id in enumerate(seat_ids):
+        difference = seat_ids[i+1] - seat_id
+        if difference > 1:
+            my_seat_id = (seat_id + seat_ids[i+1]) // 2
+            break
+
+    print(f'Answer 2: {my_seat_id}')
