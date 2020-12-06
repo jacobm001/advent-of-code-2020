@@ -37,8 +37,7 @@ class SurveyGroup:
         return len(unique_chars)
 
     def count_consensus(self) -> int:
-        f = lambda x: x.get_answer_set()
-        sets = map(f, self.participants)
+        sets = map(lambda x: x.get_answer_set(), self.participants)
         return len(set.intersection(*sets))
 
 

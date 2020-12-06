@@ -3,6 +3,7 @@ from typing import List
 import common
 import day06
 
+
 class MyTestCase(unittest.TestCase):
     def test_unique_entries(self):
         f = 'day06-sample2.txt'
