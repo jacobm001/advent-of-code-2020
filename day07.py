@@ -87,11 +87,24 @@ class SuitcaseCatalog:
         return count
 
 
+    def count_descendants(self, color: str) -> int:
+        count: int = 0
+        for bag in self.catalog[color]:
+            if self.catalog[bag.color] is None:
+                count += bag.count
+            else:
+                count += bag.count + (bag.count * self.count_descendants(bag.color))
+
+        return count
+
+
 if __name__ == '__main__':
     f = 'day07.txt'
     raw_list = common.read_list(f, str)
 
     sg      = SuitcaseCatalog(raw_list)
     answer1 = sg.count_contains('shiny gold')
+    answer2 = sg.count_descendants('shiny gold')
 
     print(f'Answer 1: {answer1}')
+    print(f'Answer 2: {answer2}')
