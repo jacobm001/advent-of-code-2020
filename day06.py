@@ -1,5 +1,7 @@
 from dataclasses import dataclass
+from string import ascii_lowercase
 from typing import List
+
 from common import read_blocks
 
 
@@ -28,7 +30,7 @@ class SurveyGroup:
 
     def count_unique_entries(self) -> int:
         unique_chars = set()
-        for char in 'abcdefghijklmnopqrstuvwxyz':
+        for char in ascii_lowercase:
             for participant in self.participants:
                 if participant.has_affirmative_response(char):
                     unique_chars.add(char)
