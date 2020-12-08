@@ -43,13 +43,16 @@ class BootCode:
     def noop(self, value):
         self.cur_position += 1
 
+    def process(self):
+        instruction = self.instructions[self.cur_position]
+        cmd, arg = parse_instruction(instruction)
+
+        self.seen_positions.append(self.cur_position)
+        self.cmd_translate[cmd](arg)
+
     def process_first_loop(self):
         while self.cur_position not in self.seen_positions:
-            instruction = self.instructions[self.cur_position]
-            cmd, arg = parse_instruction(instruction)
-
-            self.seen_positions.append(self.cur_position)
-            self.cmd_translate[cmd](arg)
+            self.process()
 
             if self.cur_position in self.seen_positions:
                 break
