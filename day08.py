@@ -33,28 +33,37 @@ class BootCode:
 
         self.instructions = input_instructions
 
-    def accumulate(self, value):
+    def accumulate(self, value) -> None:
         self.accumulator += value
         self.cur_position += 1
 
-    def jump(self, value):
+    def jump(self, value) -> None:
         self.cur_position += value
 
-    def noop(self, value):
+    def noop(self, value) -> None:
         self.cur_position += 1
 
-    def process(self):
+    def process(self) -> None:
         instruction = self.instructions[self.cur_position]
         cmd, arg = parse_instruction(instruction)
 
         self.seen_positions.append(self.cur_position)
         self.cmd_translate[cmd](arg)
 
-    def process_first_loop(self):
+    def check_for_exit(self) -> bool:
+        if self.cur_position == len(self.instructions):
+            return True
+        else:
+            return False
+
+    def process_first_loop(self) -> int:
         while self.cur_position not in self.seen_positions:
             self.process()
 
             if self.cur_position in self.seen_positions:
+                break
+
+            if self.check_for_exit():
                 break
 
         return self.accumulator
