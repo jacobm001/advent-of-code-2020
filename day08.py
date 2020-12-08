@@ -3,7 +3,15 @@ from typing import List
 import common
 
 
-INSTRUCTION_PATTERN = re.compile('^([a-z]{3}) ([+\-0-9]+)$')
+INSTRUCTION_PATTERN = re.compile(r"^([a-z]{3}) ([+\-0-9]+)$")
+
+
+def parse_instruction(instruction: str) -> (str, int):
+    match = re.match(INSTRUCTION_PATTERN, instruction)
+    cmd   = match.group(1)
+    arg   = int(match.group(2))
+
+    return cmd, arg
 
 
 class BootCode:
@@ -35,17 +43,10 @@ class BootCode:
     def noop(self, value):
         self.cur_position += 1
 
-    def parse_instruction(self, instruction: str) -> (str, int):
-        match = re.match(INSTRUCTION_PATTERN, instruction)
-        cmd   = match.group(1)
-        arg   = int(match.group(2))
-
-        return cmd, arg
-
     def process_first_loop(self):
         while self.cur_position not in self.seen_positions:
             instruction = self.instructions[self.cur_position]
-            cmd, arg = self.parse_instruction(instruction)
+            cmd, arg = parse_instruction(instruction)
 
             self.seen_positions.append(self.cur_position)
             self.cmd_translate[cmd](arg)
