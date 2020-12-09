@@ -10,7 +10,7 @@ class MyTestCase(unittest.TestCase):
     def test_find_first_invalid_entry(self):
         test = common.TestValue(None, 127)
         xmas = day09.XMAS(self.test_input, 5)
-        ret  = xmas.find_first_invalid_entry()
+        ret  = xmas.find_first_invalid_entry
 
         self.assertEqual(test.expected_output, ret)
 
