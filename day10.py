@@ -40,20 +40,19 @@ def count_branches(il: List[int], count: int = 0):
 
 
 def part1(il) -> int:
-    il = prep_list(il)
     difference_count = get_differences(il)
 
     return difference_count[1] * difference_count[3]
 
 
 def part2(il) -> int:
-    il = prep_list(il)
     return count_branches(il)
 
 
 if __name__ == '__main__':
     f = 'day10.txt'
     input_list: List[int] = common.read_list(f)
+    input_list = prep_list(input_list)
 
     answer1: int = part1(input_list)
     print(f'Answer 1: {answer1}')
