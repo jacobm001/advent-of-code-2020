@@ -14,6 +14,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_get_differences(self):
         input_list = [1, 3, 4, 5]
+
         expected = {2: 1, 1: 2}
         answer = day10.get_differences(input_list)
 
@@ -22,6 +23,8 @@ class MyTestCase(unittest.TestCase):
     def test_second_example(self):
         f = 'day10-test2.txt'
         input_list: List[int] = common.read_list(f)
+        input_list = day10.prep_list(input_list)
+
         answer: int = day10.part1(input_list)
 
         self.assertEqual(220, answer)
@@ -29,6 +32,7 @@ class MyTestCase(unittest.TestCase):
     def test_first_ex_part2(self):
         f = 'day10-test1.txt'
         input_list: List[int] = common.read_list(f)
+        input_list = day10.prep_list(input_list)
 
         answer: int = day10.part2(input_list)
         self.assertEqual(8, answer)
@@ -36,6 +40,7 @@ class MyTestCase(unittest.TestCase):
     def test_second_ex_part2(self):
         f = 'day10-test2.txt'
         input_list: List[int] = common.read_list(f)
+        input_list = day10.prep_list(input_list)
 
         answer: int = day10.part2(input_list)
         self.assertEqual(19208, answer)

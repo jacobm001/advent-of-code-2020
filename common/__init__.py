@@ -1,5 +1,6 @@
 from .inputs import *
 from .testing import *
+from .tree import *
 
 
 def product(arr: IntList):

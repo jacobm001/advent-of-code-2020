@@ -27,16 +27,59 @@ def get_differences(il: List[int]) -> collections.Counter:
     return collections.Counter(differences)
 
 
-def count_branches(il: List[int], count: int = 0):
+# My original solution, which works on the test data.
+# Apparently it's two inefficient to work on the full data though
+# as it basically never returns
+def part2_count_branches(il: List[int], count: int = 0):
     if len(il) == 1:
         return 1
 
     end = min(len(il), 4)
     for i in range(1, end):
         if il[i] - il[0] <= 3:
-            count += count_branches(il[i:])
+            count += part2_count_branches(il[i:])
 
     return count
+
+
+# When my above solution failed I figured the splicing was a bad idea
+# and that it was clearly responsible for the slow down and my memory consumption.
+#
+# This is attempt two, which is an implementation of a tree. I figured this would be more efficient
+# and that it might return in time. I was wrong. While this too produces the correct result, and is much faster
+# than my previous solution, the result is that it uses all my RAM faster.
+def part2_tree(il: List[int]):
+    t = common.Tree()
+    for i, entry in enumerate(il):
+        for j in range(i + 1, len(il)):
+            if il[j] - il[i] <= 3:
+                t.add_node(il[i], il[j])
+            else:
+                break
+
+    return t.count_ends()
+
+
+# This is the result of me looking it up. I'm not even sorry.
+# Explanation preserved here
+# https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfbo61q?utm_source=share&utm_medium=web2x&context=3
+#
+# Logic: count all possible input paths into an adapter / node, start from wall,
+# propagate the count up till the end of chain.
+#
+# - start from wall adapter (root node) with input count 1
+# - add this count to the next 1, 2 or 3 adapters / nodes
+# - add their input counts to next adapters / nodes
+# - repeat this for all adapters (in sorted order)
+# - you'll end up with input count for your device adapter
+def count(il: List[int]) -> int:
+    counter = collections.Counter({0: 1})
+    for entry in il:
+        counter[entry + 1] += counter[entry]
+        counter[entry + 2] += counter[entry]
+        counter[entry + 3] += counter[entry]
+
+    return counter[max(il)]
 
 
 def part1(il) -> int:
@@ -46,7 +89,7 @@ def part1(il) -> int:
 
 
 def part2(il) -> int:
-    return count_branches(il)
+    return count(il)
 
 
 if __name__ == '__main__':
