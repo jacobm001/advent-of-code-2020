@@ -27,13 +27,14 @@ def get_differences(il: List[int]) -> collections.Counter:
     return collections.Counter(differences)
 
 
-def count_branches(il: List[int], position: int = 0):
-    count = 1
-    start = position + 1
-    end   = len(il) - start
-    for i in range(start, end+1):
-        if il[i] - il[position] <= 3:
-            count += count_branches(il, i+1)
+def count_branches(il: List[int], count: int = 0):
+    if len(il) == 1:
+        return 1
+
+    end = min(len(il), 4)
+    for i in range(1, end):
+        if il[i] - il[0] <= 3:
+            count += count_branches(il[i:])
 
     return count
 
@@ -47,7 +48,7 @@ def part1(il) -> int:
 
 def part2(il) -> int:
     il = prep_list(il)
-    return count_branches(il) + 1
+    return count_branches(il)
 
 
 if __name__ == '__main__':
