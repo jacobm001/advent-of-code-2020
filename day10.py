@@ -47,7 +47,7 @@ def part1(il) -> int:
 
 def part2(il) -> int:
     il = prep_list(il)
-    return count_branches(input_list) + 1
+    return count_branches(il) + 1
 
 
 if __name__ == '__main__':
