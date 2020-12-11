@@ -3,6 +3,7 @@ import collections
 import common
 from functools import lru_cache
 
+
 def prep_list(il: List[int]):
     # sort values
     il.sort()
@@ -27,18 +28,19 @@ def get_differences(il: List[int]) -> collections.Counter:
     return collections.Counter(differences)
 
 
-# My original solution, which works on the test data.
-# Apparently it's too inefficient to work on the full data though
-# as it basically never returns
+# Now that I've discovered the miracle known as "memoization", I've altered my original solution to accept
+# a tuple instead of a list. This allows the @lru_cache to cache the results in the provided dictionary.
+#
+# This function works by counting the branch endpoints. If the jolt variation is increased.
 @lru_cache(None)
-def part2_count_branches(il: Tuple[int], count: int = 0):
+def count_branches(il: Tuple[int], count: int = 0):
     if len(il) == 1:
         return 1
 
     end = min(len(il), 4)
     for i in range(1, end):
         if il[i] - il[0] <= 3:
-            count += part2_count_branches(il[i:])
+            count += count_branches(il[i:])
 
     return count
 
@@ -62,9 +64,11 @@ def part2_tree(il: List[int]):
 
 
 # This is the result of me looking it up. I'm not even sorry.
-# Explanation preserved here
-# https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfbo61q?utm_source=share&utm_medium=web2x&context=3
+# Update: As I've fixed my original implementation, this code is no longer needed, but I'm keeping it
+#         here as it's cool.
+# Source: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfbo61q
 #
+# Explanation preserved here
 # Logic: count all possible input paths into an adapter / node, start from wall,
 # propagate the count up till the end of chain.
 #
@@ -89,7 +93,7 @@ def part1(il) -> int:
 
 
 def part2(il) -> int:
-    return part2_count_branches(tuple(il))
+    return count_branches(tuple(il))
 
 
 if __name__ == '__main__':
