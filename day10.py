@@ -1,7 +1,7 @@
-from typing import List
+from typing import List, Tuple
 import collections
 import common
-
+from functools import lru_cache
 
 def prep_list(il: List[int]):
     # sort values
@@ -28,9 +28,10 @@ def get_differences(il: List[int]) -> collections.Counter:
 
 
 # My original solution, which works on the test data.
-# Apparently it's two inefficient to work on the full data though
+# Apparently it's too inefficient to work on the full data though
 # as it basically never returns
-def part2_count_branches(il: List[int], count: int = 0):
+@lru_cache()
+def part2_count_branches(il: Tuple[int], count: int = 0):
     if len(il) == 1:
         return 1
 
@@ -88,7 +89,7 @@ def part1(il) -> int:
 
 
 def part2(il) -> int:
-    return count(il)
+    return part2_count_branches(tuple(il))
 
 
 if __name__ == '__main__':
