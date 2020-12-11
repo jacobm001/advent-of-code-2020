@@ -46,7 +46,7 @@ if __name__ == '__main__':
     seat_matrix = common.read_matrix(f, str)
     common.print_matrix(seat_matrix)
 
-    for i in range(0, 4):
+    for turn in range(0, 4):
         print('------')
         seat_matrix = do_round(seat_matrix)
         common.print_matrix(seat_matrix)
