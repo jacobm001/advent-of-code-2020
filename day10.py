@@ -30,7 +30,7 @@ def get_differences(il: List[int]) -> collections.Counter:
 # My original solution, which works on the test data.
 # Apparently it's too inefficient to work on the full data though
 # as it basically never returns
-@lru_cache()
+@lru_cache(None)
 def part2_count_branches(il: Tuple[int], count: int = 0):
     if len(il) == 1:
         return 1
