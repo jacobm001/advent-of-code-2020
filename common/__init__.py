@@ -13,7 +13,7 @@ def product(arr: IntList):
 
 
 def print_matrix(matrix: Matrix):
-    for row in matrix[:2]:
+    for row in matrix:
         print(row)
 
 
