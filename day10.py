@@ -84,7 +84,6 @@ def count(il: List[int]) -> int:
 
 def part1(il) -> int:
     difference_count = get_differences(il)
-
     return difference_count[1] * difference_count[3]
 
 
