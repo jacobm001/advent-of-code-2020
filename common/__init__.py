@@ -1,3 +1,5 @@
+from typing import Any
+
 from .inputs import *
 from .testing import *
 from .tree import *
@@ -24,3 +26,14 @@ def matrix_equal(matrix_a: Matrix, matrix_b: Matrix) -> bool:
                 return False
 
     return True
+
+
+def count_in_matrix(matrix: Matrix, value: Any) -> int:
+    count: int = 0
+
+    for row in matrix:
+        for seat in row:
+            if seat == value:
+                count += 1
+
+    return count
