@@ -10,3 +10,8 @@ def product(arr: IntList):
         ret *= x
 
     return ret
+
+
+def print_matrix(matrix: Matrix):
+    for row in matrix:
+        print(row)
