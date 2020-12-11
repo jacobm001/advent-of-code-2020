@@ -3,7 +3,7 @@ import copy
 import common
 
 
-class seat_type(str, enum.Enum):
+class SeatType(str, enum.Enum):
     FLOOR: str    = '.'
     EMPTY: str    = 'L'
     OCCUPIED: str = '#'
@@ -22,24 +22,20 @@ def do_round(seats: common.Matrix):
         for j, seat in enumerate(row):
             adjacent_seats: int = 0
 
-            # check left
-            if j != 0 and row[j-1] == seat_type.OCCUPIED:
-                adjacent_seats += 1
-            # check right
-            if j+1 < len(row) and row[j+1] == seat_type.OCCUPIED:
-                adjacent_seats += 1
-            # check up
-            if i != 0 and seats[i-1][j] == seat_type.OCCUPIED:
-                adjacent_seats += 1
-            # check down
-            if i+1 < len(seats) and seats[i+1][j] == seat_type.OCCUPIED:
-                adjacent_seats += 1
+            for x in range(max(0, i - 1), min(len(seats), i + 2)):
+                for y in range(max(0, j - 1), min(len(row), j + 2)):
+                    # skip the current seat
+                    if (i, j) == (x, y):
+                        continue
 
-            #
-            if seat == seat_type.EMPTY and adjacent_seats == 0:
-                return_matrix[i][j] = str(seat_type.OCCUPIED)
-            if seat == seat_type.OCCUPIED and adjacent_seats >= 4:
-                return_matrix[i][j] = str(seat_type.EMPTY)
+                    if seats[x][j] == SeatType.OCCUPIED:
+                        adjacent_seats += 1
+
+            if seat == SeatType.EMPTY and adjacent_seats == 0:
+                return_matrix[i][j] = str(SeatType.OCCUPIED)
+
+            if seat == SeatType.OCCUPIED and adjacent_seats >= 4:
+                return_matrix[i][j] = str(SeatType.EMPTY)
 
     return return_matrix
 
