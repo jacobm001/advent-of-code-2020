@@ -105,14 +105,9 @@ def part2(f: str) -> int:
     seat_matrix = common.read_matrix(f, str)
     count: int  = 0
 
-    # common.print_matrix(seat_matrix)
     while True:
         previous_matrix = copy.deepcopy(seat_matrix)
         seat_matrix     = do_round_v2(seat_matrix)
-
-        # print('----------')
-        # common.print_matrix(seat_matrix)
-
 
         if common.matrix_equal(previous_matrix, seat_matrix):
             break
