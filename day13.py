@@ -1,6 +1,24 @@
 import common
 from typing import List, Any
 
+
+def part1(earliest_departure: int, bus_times: List[int]) -> int:
+    start: int = earliest_departure
+
+    answer: int = None
+    while answer is None:
+        for i, bus in enumerate(bus_times):
+            if start % bus == 0:
+                wait: int = start - earliest_departure
+                bus_id: int = bus_times[i]
+                answer: int = wait * bus_id
+                break
+
+        start += 1
+
+    return answer
+
+
 if __name__ == '__main__':
     earliest: int
     buses_raw: List[Any]
@@ -12,18 +30,5 @@ if __name__ == '__main__':
 
     buses_raw = list(filter(lambda x: x.isnumeric(), buses_raw))
     buses     = list(map(int, buses_raw))
-
-    start: int = earliest
-
-    answer1: int = None
-    while answer1 is None:
-        for i, bus in enumerate(buses):
-            if start % bus == 0:
-                wait: int    = start - earliest
-                bus_id: int  = buses[i]
-                answer1: int = wait * bus_id
-                break
-
-        start += 1
-
+    answer1   = part1(earliest, buses)
     print(f'Answer 1: {answer1}')
