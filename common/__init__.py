@@ -3,6 +3,7 @@ from typing import Any
 from .inputs import *
 from .testing import *
 from .tree import *
+from .boats import *
 
 
 def product(arr: IntList):

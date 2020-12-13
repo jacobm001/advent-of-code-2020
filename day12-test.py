@@ -1,15 +1,17 @@
 import unittest
+
+import common.boats
 import day12
 
-class MyTestCase(unittest.TestCase):
+class TestBoat(unittest.TestCase):
     def test_boat_init(self):
-        boat = day12.Boat()
+        boat = common.boats.Boat()
         self.assertEqual(90, boat.heading)
         self.assertEqual(0, boat.pos_north)
         self.assertEqual(0, boat.pos_east)
 
     def test_move(self):
-        boat = day12.Boat()
+        boat = common.boats.Boat()
         boat.move('N10')
         boat.move('E10')
         self.assertEqual(90, boat.heading)
@@ -22,14 +24,14 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(5, boat.pos_east)
 
     def test_move_forward(self):
-        boat = day12.Boat()
+        boat = common.boats.Boat()
         boat.move('F10')
         self.assertEqual(90, boat.heading)
         self.assertEqual(0, boat.pos_north)
         self.assertEqual(10, boat.pos_east)
 
     def test_turn(self):
-        boat = day12.Boat()
+        boat = common.boats.Boat()
         boat.move('L90')
         self.assertEqual(0, boat.heading)
         self.assertEqual(0, boat.pos_north)
