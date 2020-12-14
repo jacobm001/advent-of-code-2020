@@ -34,8 +34,14 @@ class MyTestCase(unittest.TestCase):
         cs.set_mask(list('000000000000000000000000000000X1001X'))
         cs.memory_decoder(42, 100)
 
+        # ensure all entries were set properly
         self.assertEqual(100, cs.mem[26])
+        self.assertEqual(100, cs.mem[27])
+        self.assertEqual(100, cs.mem[58])
+        self.assertEqual(100, cs.mem[59])
 
+        # ensure there were no unexpected entries
+        self.assertEqual(4, len(cs.mem))
 
 if __name__ == '__main__':
     unittest.main()
