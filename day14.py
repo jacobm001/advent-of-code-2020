@@ -31,6 +31,12 @@ class ComputerSystem:
         masked_value  = self.apply_mask(binary_rep)
         self.mem[key] = masked_value
 
+    def get_memory_sum(self) -> int:
+        # iterate through the memory dictionary values
+        # for each value, join the List[str] to a single string, then convert that 36bit binary
+        # number to a base 10 integer. Finally, return the sum()
+        return sum(list(map(lambda x: int(''.join(x), 2), self.mem.values())))
+
 
 if __name__ == '__main__':
     cs = ComputerSystem()
@@ -39,10 +45,5 @@ if __name__ == '__main__':
     cs.set_memory(7, 101)
     cs.set_memory(8, 0)
 
-    for key, value in cs.mem.items():
-        s = ''.join(value)
-        i = int(s, 2)
-        print(key, i)
-
-    answer1 = sum(list(map(lambda x: int(''.join(x), 2), cs.mem.values())))
+    answer1 = cs.get_memory_sum()
     print(f'Answer 1: {answer1}')
