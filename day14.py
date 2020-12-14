@@ -33,8 +33,9 @@ class ComputerSystem:
 
     def get_memory_sum(self) -> int:
         # iterate through the memory dictionary values
-        # for each value, join the List[str] to a single string, then convert that 36bit binary
-        # number to a base 10 integer. Finally, return the sum()
+        # 1. for each value, join the List[str] to a single string
+        # 2. convert that 36bit binary string to an integer.
+        # 3. return the sum()
         return sum(list(map(lambda x: int(''.join(x), 2), self.mem.values())))
 
 
