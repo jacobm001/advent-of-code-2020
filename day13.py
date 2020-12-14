@@ -1,5 +1,6 @@
 import common
 from typing import List, Any
+from itertools import count
 
 
 def part1(earliest_departure: int, bus_times: List[int]) -> int:
@@ -19,25 +20,18 @@ def part1(earliest_departure: int, bus_times: List[int]) -> int:
     return answer
 
 
-def part2(bus_times: List[str]) -> int:
-    answer: int = None
-    first_bus: int = int(bus_times[0])
+# My previous solution took so long it'd effectively never return. I came up with this based
+# on some hints I came across online.
+def part2(buses_id_time) -> int:
+    start: int = 0
+    step: int = 1
+    for bus, offset in buses_id_time:
+        for i in count(start, step):
+            if (i + offset) % bus == 0:
+                start, step = i, step * bus
+                break
 
-    start: int = 100000000000000
-    while answer is None:
-        if start % first_bus == 0:
-            found: bool = True
-            for i in range(1, len(bus_times)):
-                if not (bus_times[i] == 'x' or (start+i) % int(bus_times[i]) == 0):
-                    found = False
-                    break
-
-            if found == True:
-                answer = start
-
-        start += 1
-
-    return answer
+    return start
 
 
 if __name__ == '__main__':
@@ -49,9 +43,12 @@ if __name__ == '__main__':
         earliest  = int(f.readline().strip())
         buses_raw = f.readline().strip().split(',')
 
-    buses     = list(map(int, list(filter(lambda x: x.isnumeric(), buses_raw))))
+    # I hate the next two lines... But here we are because they work
+    buses  = list(map(int, list(filter(lambda x: x.isnumeric(), buses_raw))))
+    buses2 = [(int(bus), index) for index, bus in enumerate(buses_raw) if bus != 'x']
+
     answer1   = part1(earliest, buses)
-    answer2   = part2(buses_raw)
+    answer2   = part2(buses2)
 
     print(f'Answer 1: {answer1}')
     print(f'Answer 2: {answer2}')
