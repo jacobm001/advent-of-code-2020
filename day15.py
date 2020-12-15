@@ -1,3 +1,4 @@
+import timeit
 from typing import List, Optional, Dict
 
 
@@ -40,12 +41,19 @@ class MemoryGame:
 
 if __name__ == '__main__':
     puzzle_input = [1, 0, 16, 5, 17, 4]
-    # puzzle_input = [0, 3, 6]
+
+    # Part 1
     game1 = MemoryGame(puzzle_input)
-
+    start_time   = timeit.default_timer()
     answer1: int = game1.play_until(2020)
+    end_time     = timeit.default_timer() - start_time
     print(f'Answer 1: {answer1}')
+    print(f'\t Answer 1 completed in {end_time} seconds.')
 
-    game2 = MemoryGame(puzzle_input)
+    # Part 21
+    game2        = MemoryGame(puzzle_input)
+    start_time   = timeit.default_timer()
     answer2: int = game2.play_until(30000000)
+    end_time     = timeit.default_timer() - end_time
     print(f'Answer 2: {answer2}')
+    print(f'\t Answer 2 completed in {end_time} seconds.')
