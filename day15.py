@@ -13,12 +13,16 @@ class MemoryGame:
     def play_until(self, play_until: int) -> int:
         nth_number: int = 0
 
+        # load the starting numbers into the number dictionary
         for number in self.starting_numbers:
             self.numbers[number] = [nth_number]
             nth_number += 1
 
+        # We know that the last read number is always new based on the rules.
+        # Remember which the last one we entered was, and tell the loop that it was new.
         last_number: int = self.starting_numbers[-1]
         new_number: bool = True
+
         while nth_number < play_until:
             if new_number:
                 last_number = 0
