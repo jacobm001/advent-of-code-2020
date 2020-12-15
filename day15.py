@@ -1,9 +1,9 @@
 import timeit
-from typing import List, Optional, Dict
+from typing import List, Dict
 
 
 class MemoryGame:
-    numbers: Dict[int, int]
+    numbers: Dict[int]
     starting_numbers: List[int]
 
     def __init__(self, starting_numbers: List[int]):
