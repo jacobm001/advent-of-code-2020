@@ -18,7 +18,7 @@ class MemoryGame:
 
         last_number: int = self.starting_numbers[-1]
         new_number: bool = True
-        while nth_number < 2020:
+        while nth_number < play_until:
             if new_number:
                 last_number = 0
                 self.numbers[last_number].append(nth_number)
@@ -41,8 +41,11 @@ class MemoryGame:
 if __name__ == '__main__':
     puzzle_input = [1, 0, 16, 5, 17, 4]
     # puzzle_input = [0, 3, 6]
-    game = MemoryGame(puzzle_input)
+    game1 = MemoryGame(puzzle_input)
 
-    answer1: int = game.play_until(2020)
-
+    answer1: int = game1.play_until(2020)
     print(f'Answer 1: {answer1}')
+
+    game2 = MemoryGame(puzzle_input)
+    answer2: int = game2.play_until(30000000)
+    print(f'Answer 2: {answer2}')
