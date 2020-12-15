@@ -1,36 +1,48 @@
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 
 class MemoryGame:
-    numbers: List[int]
+    numbers: Dict[int, int]
+    starting_numbers: List[int]
 
     def __init__(self, starting_numbers: List[int]):
-        self.numbers = starting_numbers
+        self.starting_numbers = starting_numbers
+        self.numbers = {}
 
-    def _rindex(self, value: int) -> Optional[int]:
-        try:
-            self.numbers.reverse()
-            i = self.numbers.index(value, 1)
-            self.numbers.reverse()
-            return len(self.numbers) - i - 1
-        except ValueError:
-            return None
+    def play_until(self, play_until: int) -> int:
+        nth_number: int = 0
 
-    def round(self):
-        while len(self.numbers) < 2020:
-            last_spoken = self.numbers[-1]
-            last_index  = self._rindex(last_spoken)
-            if not last_index:
-                self.numbers.append(0)
+        for number in self.starting_numbers:
+            self.numbers[number] = [nth_number]
+            nth_number += 1
+
+        last_number: int = self.starting_numbers[-1]
+        new_number: bool = True
+        while nth_number < 2020:
+            if new_number:
+                last_number = 0
+                self.numbers[last_number].append(nth_number)
+                new_number = False
             else:
-                new_number: int = len(self.numbers) - last_index
-                self.numbers.append(new_number)
+                last_number = self.numbers[last_number][-1] - self.numbers[last_number][-2]
+                if last_number not in self.numbers:
+                    self.numbers[last_number] = [nth_number]
+                    new_number = True
+                else:
+                    self.numbers[last_number].append(nth_number)
+                    new_number = False
+
+            nth_number += 1
+
+
+        return last_number
 
 
 if __name__ == '__main__':
-    # puzzle_input = [1, 0, 16, 5, 17, 4]
-    puzzle_input = [0, 3, 6]
+    puzzle_input = [1, 0, 16, 5, 17, 4]
+    # puzzle_input = [0, 3, 6]
     game = MemoryGame(puzzle_input)
-    game.round()
 
-    print(game.numbers[-1])
+    answer1: int = game.play_until(2020)
+
+    print(f'Answer 1: {answer1}')
