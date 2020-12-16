@@ -26,7 +26,7 @@ class Field:
         return False
 
 
-def parse_fields(field_input: List[str]) -> List[Field]:
+def parse_fields(field_input: str) -> List[Field]:
     ret_fields = []
 
     for line in field_input.split('\n'):
@@ -43,6 +43,24 @@ def parse_fields(field_input: List[str]) -> List[Field]:
     return ret_fields
 
 
+def parse_my_ticket(my_ticket_input: str) -> Ticket:
+    my_ticket_input = my_ticket_input.split('\n')
+    return [int(t) for t in my_ticket_input[1].split(',')]
+
+
+def parse_nearby_tickets(nearby_ticket_input: str) -> Tickets:
+    nearby_ticket_input = nearby_ticket_input.split('\n')
+    ret: Tickets = []
+
+    for line in nearby_ticket_input[1:]:
+        if line == "":
+            continue
+
+        ret.append([int(t) for t in line.split(',')])
+
+    return ret
+
+
 if __name__ == '__main__':
     # block 1: fields
     # block 2: my ticket
@@ -50,7 +68,6 @@ if __name__ == '__main__':
     with open('inputs/day16.txt', 'r') as f:
         raw_input = f.read().split('\n\n')
 
-    fields: List[Field] = parse_fields(raw_input[0])
-    print(fields)
-
-
+    fields: List[Field]     = parse_fields(raw_input[0])
+    my_ticket: Ticket       = parse_my_ticket(raw_input[1])
+    nearby_tickets: Tickets = parse_nearby_tickets(raw_input[2])
