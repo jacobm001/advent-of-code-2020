@@ -1,5 +1,7 @@
 from typing import List, Tuple
 import re
+from itertools import permutations
+
 import common
 
 
@@ -17,6 +19,9 @@ class Field:
     def __init__(self, name: str, ranges: List[Tuple]):
         self.name   = name
         self.ranges = ranges
+
+    def __repr__(self):
+        return f'Field: {self.name}'
 
     def number_in_range(self, number: int) -> bool:
         for r in self.ranges:
@@ -65,7 +70,7 @@ if __name__ == '__main__':
     # block 1: fields
     # block 2: my ticket
     # block 3: nearby tickets
-    with open('inputs/day16.txt', 'r') as f:
+    with open('inputs/day16-test.txt', 'r') as f:
         raw_input = f.read().split('\n\n')
 
     fields: List[Field]     = parse_fields(raw_input[0])
@@ -86,3 +91,17 @@ if __name__ == '__main__':
 
     answer1 = sum(invalid_fields)
     print(f'Answer1: {answer1}')
+
+    # part 2
+    # example should return
+    #   row, class, seat
+    for perm in permutations(fields):
+        valid_fields: int = 0
+        for i, field in enumerate(perm):
+            if field.number_in_range(my_ticket[i]):
+                valid_fields += 1
+            else:
+                break
+
+        if valid_fields == len(my_ticket):
+            print(perm)
