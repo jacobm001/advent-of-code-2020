@@ -71,3 +71,18 @@ if __name__ == '__main__':
     fields: List[Field]     = parse_fields(raw_input[0])
     my_ticket: Ticket       = parse_my_ticket(raw_input[1])
     nearby_tickets: Tickets = parse_nearby_tickets(raw_input[2])
+
+    invalid_fields: List[int] = []
+    # part 1
+    for ticket in nearby_tickets:
+        for entry in ticket:
+            valid_field = False
+            for field in fields:
+                if field.number_in_range(entry):
+                    valid_field = True
+
+            if valid_field is False:
+                invalid_fields.append(entry)
+
+    answer1 = sum(invalid_fields)
+    print(f'Answer1: {answer1}')
