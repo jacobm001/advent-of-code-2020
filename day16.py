@@ -95,13 +95,19 @@ if __name__ == '__main__':
     # part 2
     # example should return
     #   row, class, seat
+    num_fields: int = len(fields)
     for perm in permutations(fields):
-        valid_fields: int = 0
-        for i, field in enumerate(perm):
-            if field.number_in_range(my_ticket[i]):
-                valid_fields += 1
-            else:
+        valid_perm: bool = True
+        for i in range(len(nearby_tickets)):
+            for j in range(num_fields):
+                if perm[j].number_in_range(nearby_tickets[i][j]):
+                    continue
+                else:
+                    valid_perm = False
+                    break
+
+            if not valid_perm:
                 break
 
-        if valid_fields == len(my_ticket):
+        if valid_perm:
             print(perm)
