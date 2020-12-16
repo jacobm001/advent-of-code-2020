@@ -70,16 +70,18 @@ if __name__ == '__main__':
     # block 1: fields
     # block 2: my ticket
     # block 3: nearby tickets
-    with open('inputs/day16-test.txt', 'r') as f:
+    with open('inputs/day16.txt', 'r') as f:
         raw_input = f.read().split('\n\n')
 
     fields: List[Field]     = parse_fields(raw_input[0])
     my_ticket: Ticket       = parse_my_ticket(raw_input[1])
     nearby_tickets: Tickets = parse_nearby_tickets(raw_input[2])
+    valid_tickets: Tickets  = []
 
     invalid_fields: List[int] = []
     # part 1
     for ticket in nearby_tickets:
+        valid_ticket: bool = True
         for entry in ticket:
             valid_field = False
             for field in fields:
@@ -88,6 +90,10 @@ if __name__ == '__main__':
 
             if valid_field is False:
                 invalid_fields.append(entry)
+                valid_ticket = False
+
+        if valid_ticket:
+            valid_tickets.append(ticket)
 
     answer1 = sum(invalid_fields)
     print(f'Answer1: {answer1}')
@@ -98,9 +104,9 @@ if __name__ == '__main__':
     num_fields: int = len(fields)
     for perm in permutations(fields):
         valid_perm: bool = True
-        for i in range(len(nearby_tickets)):
+        for i in range(len(valid_tickets)):
             for j in range(num_fields):
-                if perm[j].number_in_range(nearby_tickets[i][j]):
+                if perm[j].number_in_range(valid_tickets[i][j]):
                     continue
                 else:
                     valid_perm = False
