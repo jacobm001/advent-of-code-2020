@@ -34,8 +34,8 @@ class ConwayCube:
 
     def count_active(self) -> int:
         count = 0
-        for point in self.coordinates.values():
-            if point == ACTIVE:
+        for state in self.coordinates.values():
+            if state == ACTIVE:
                 count += 1
 
         return count
