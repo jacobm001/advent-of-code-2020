@@ -23,7 +23,7 @@ class ConwayCube:
     coordinates: Dict
 
     def __init__(self, starting_input: Matrix):
-        self.coordinates: defaultdict = defaultdict(lambda: '?')
+        self.coordinates: defaultdict = defaultdict(lambda: NEWCOOR)
         self.parse_input(starting_input)
 
     def parse_input(self, starting_input: Matrix):
@@ -78,7 +78,7 @@ if __name__ == '__main__':
     puzzle_input = common.read_matrix('day17-test.txt', str)
     cube = ConwayCube(puzzle_input)
 
-    for i in range(0, 7):
+    for turn in range(0, 7):
         cube.do_round()
 
     print('Active:   ', cube.count_type(ACTIVE))
