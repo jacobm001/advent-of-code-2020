@@ -97,6 +97,7 @@ if __name__ == '__main__':
 
     answer1 = sum(invalid_fields)
     print(f'Answer1: {answer1}')
+    print(f'\t Removed {len(nearby_tickets) - len(valid_tickets)} invalid tickets.')
 
     # part 2
     # example should return
