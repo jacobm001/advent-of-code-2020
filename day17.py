@@ -32,10 +32,10 @@ class ConwayCube:
             for y, point in enumerate(line):
                 self.coordinates[(x, y, z)] = point
 
-    def count_active(self) -> int:
-        count = 0
+    def count_type(self, coordinate_type: str) -> int:
+        count: int = 0
         for state in self.coordinates.values():
-            if state == ACTIVE:
+            if state == coordinate_type:
                 count += 1
 
         return count
@@ -52,9 +52,6 @@ class ConwayCube:
         return count
 
     def do_round(self):
-        new_dict: Dict          = self.coordinates.copy()
-        new_coords: List[Tuple] = []
-
         # overriding the iterator here to try and not have the defaultdict not change the size during run
         for coordinate, state in tuple(self.coordinates.items()):
             active_neighbors: int = self.check_neighbors(coordinate)
@@ -76,8 +73,6 @@ class ConwayCube:
             else:
                 self.coordinates[coordinate] = INACTIVE
 
-        self.coordinates = new_dict.copy()
-
 
 if __name__ == '__main__':
     puzzle_input = common.read_matrix('day17-test.txt', str)
@@ -86,4 +81,6 @@ if __name__ == '__main__':
     for i in range(0, 7):
         cube.do_round()
 
-    print(cube.count_active())
+    print('Active:   ', cube.count_type(ACTIVE))
+    print('Inactive: ', cube.count_type(INACTIVE))
+    print('New:      ', cube.count_type(NEWCOOR))
