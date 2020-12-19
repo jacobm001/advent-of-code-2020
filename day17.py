@@ -23,7 +23,7 @@ class ConwayCube:
     coordinates: Dict
 
     def __init__(self, starting_input: Matrix):
-        self.coordinates: defaultdict = defaultdict(lambda: NEWCOOR)
+        self.coordinates: defaultdict = defaultdict(lambda: INACTIVE)
         self.parse_input(starting_input)
 
     def parse_input(self, starting_input: Matrix):
@@ -52,6 +52,8 @@ class ConwayCube:
         return count
 
     def do_round(self):
+        new_coordinates = self.coordinates.copy()
+
         # overriding the iterator here to try and not have the defaultdict not change the size during run
         for coordinate, state in tuple(self.coordinates.items()):
             active_neighbors: int = self.check_neighbors(coordinate)
@@ -59,19 +61,12 @@ class ConwayCube:
             if state == ACTIVE and 2 <= active_neighbors <= 3:
                 # cube remains active
                 continue
+            elif state == ACTIVE and not 2 <= active_neighbors <= 3:
+                new_coordinates[coordinate] = INACTIVE
             elif state == INACTIVE and active_neighbors == 2:
-                self.coordinates[coordinate] = ACTIVE
+                new_coordinates[coordinate] = ACTIVE
 
-        # handle the new NEWCOOR pieces
-        for coordinate, state in tuple(self.coordinates.items()):
-            if state != NEWCOOR:
-                continue
-
-            active_neighbors: int = self.check_neighbors(coordinate)
-            if active_neighbors == 2:
-                self.coordinates[coordinate] = ACTIVE
-            else:
-                self.coordinates[coordinate] = INACTIVE
+        self.coordinates = new_coordinates
 
 
 if __name__ == '__main__':
