@@ -5,6 +5,8 @@ def get_input() -> list[list[int]]:
     with open('day01-inputa.txt', 'r') as f:
         inputa = f.read()
 
+    # outer list-comprehension only results in a list[list[str]]
+    # inner list-comprehension converts the innermost strings to ints
     ret: list[list[int]] = [[int(y) for y in x.split('\n')] for x in inputa.split('\n\n')]
 
     return ret
